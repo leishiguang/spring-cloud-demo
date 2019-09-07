@@ -7,6 +7,32 @@
 于是，有了本次的“spring cloud 常用组件小结”
 
 
+### 概括
+
+这次的小结呢，会涉及到这么一些组件。
+
+netflix 家族的：
+
+1. [eureka 服务注册与发现](/docs/summary_eureka.md)
+2. [ribbon 客户端负载均衡](/docs/summary_ribbon.md)
+3. [hystrix 服务容错机制](/docs/summary_hystrix.md)
+4. [feign 声明式接口调用](/docs/summary_feign.md)
+5. [zuul 微服务网关](/docs/summary_zuul.md)
+
+spring cloud 生态的：
+
+1. stream 消息驱动
+2. bus 事件传播
+3. sleuth 分布式链路追踪
+4. gateway 网关组件
+5. config 分布式配置中心
+
+### 完整的微服务架构实践
+
+怎么把刚刚提到的各个组件，组合起来，集成在一起，构建一套完整的微服务系统呢？
+
+（完善中，敬请期待……）
+
 ### 微服务架构为了解决什么问题？
 
 系统最初，是单机应用，逐渐发展了缓存、数据库分库分表，接着有负载均衡，有分布式集群...
@@ -31,28 +57,3 @@
 于是，在各大公司的努力探索下，spring netflix 组件和 spring cloud 周围的各种生态，就应运出来了~
 
 
-### 概括
-
-这次的小结呢，会涉及到这么一些组件。
-
-netflix 家族的：
-
-1. [eureka 服务注册与发现](/docs/summary_eureka.md)
-2. [ribbon 客户端负载均衡]()
-3. [hystrix 服务容错机制]()
-4. [feign 声明式接口调用]()
-5. [zuul 微服务网关]()
-
-spring cloud 生态的：
-
-1. stream 消息驱动
-2. bus 事件传播
-3. sleuth 分布式链路追踪
-4. gateway 网关组件
-5. config 分布式配置中心
-
-### 完整的微服务架构实践
-
-怎么把刚刚提到的各个组件，组合起来，集成在一起，构建一套完整的微服务系统呢？
-
-（完善中，敬请期待……）
