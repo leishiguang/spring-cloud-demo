@@ -1,15 +1,28 @@
 # spring-cloud-demo
-一次完整的 spring cloud 实践，探究涉及组件的原理，包含 eureka、ribbon、hystrix、feign、zuul、stream、sleuth
 
-## 敬请期待
+<p>
+	<a target="_blank" href="https://github.com/leishiguang/spring-framework-mini/blob/master/LICENSE">
+		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
+	</a>
+	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
+		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
+	</a>
+</p>
+
+一次完整的 spring cloud 实践，探究涉及组件的原理，包含 eureka、ribbon、hystrix、feign、zuul、stream、sleuth
 
 ## 目标：
 
-1. 模拟业务场景，对客户端的请求携带参数值进行统计，最终对比客户端请求次数与统计结果；
-2. 50 万 QPS；
+1. 模拟业务场景：对客户端发送的请求进行指标统计，最终对比后台统计结果是否与客户端请求次数匹配；
+2. 不丢弃客户端请求，50 万 QPS；
 
-**demo地址**
+**demo地址（敬请期待）**
 
+## 启动步骤
+
+1. 启动[spring-cloud-demo-eureka-server](/all/spring-cloud-demo-eureka-server)
+
+(未完待续，敬请期待...)
 
 ## 对本项目感兴趣？
 
