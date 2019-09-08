@@ -2,10 +2,9 @@
 
 - 问1：都有哪些常用组件，都是些什么，有什么用，要怎么用？
 - 问2：这些组件的设计思路是什么样的？
-- 问3：可以把这些组件全部都组合在一起吗？
+- 问3：怎么样把这些组件全部都组合在一起，构成完整的一套微服务？
 
 于是，有了本次的“spring cloud 常用组件小结”
-
 
 ### 概括
 
@@ -21,11 +20,11 @@ netflix 家族的：
 
 spring cloud 生态的：
 
-1. stream 消息驱动
-2. bus 事件传播
-3. sleuth 分布式链路追踪
-4. gateway 网关组件
-5. config 分布式配置中心
+1. [stream 消息驱动](/docs/summary_stream.md)
+2. [bus 事件传播](/docs/summary_bus.md)
+3. [sleuth 分布式链路追踪](/docs/summary_sleuth.md)
+4. [gateway 网关组件](/docs/summary_gateway.md)
+5. [config 分布式配置中心](/docs/summary_config.md)
 
 ### 完整的微服务架构实践
 
@@ -55,5 +54,6 @@ spring cloud 生态的：
 4. 服务的调用链路这么复杂，怎么去排查线上问题？
 
 于是，在各大公司的努力探索下，spring netflix 组件和 spring cloud 周围的各种生态，就应运出来了~
+虽然 netflix 的组件，只进行 bug 修复，不再进行新功能新增了。但是，它们的设计理念，还是这么经典~
 
 
