@@ -1,4 +1,4 @@
-#### eureka 小结
+### eureka 小结
 
 
 嗯，先说说注册中心，假如没有注册中心，如何管理多个服务？我们可能会在客户端提前配置服务端的地址。
@@ -43,7 +43,6 @@ eureka.client.service-url.defalutZone，要选择的注册中心？
 eureka.server.wait-time-in-ms-when-sync-empty，服务要同步数据的等待时间
 eureka.server.enable-self-reservation，自我保护机制，是不是防止网络颤动时的服务下线，这一步虽然确保了自身的健壮性，但可能会保留已宕机的服务，好在有别的组件弥补了这部分的不足
 eureka.server.peer-eureka-nods-update-interval-ms，服务同步时间，可以稍微设置长一些，因为我们不需要它那么快速的去同步
-
 ```
 
 defaultZone 是一个区域的概念，可以指定对应的地区，比较适用于较大范围的服务器，这样客户端会优先调用同地区的服务，比如这么一个配置：
