@@ -20,7 +20,7 @@
 
 ## 启动步骤
 
-1. 启动[spring-cloud-demo-eureka-server](/all/spring-cloud-demo-eureka-server)
+1. 启动 [spring-cloud-demo-eureka-server](/all/spring-cloud-demo-eureka-server) 应用;
 
 (未完待续，敬请期待...)
 
