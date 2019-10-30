@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  elasticsearch:
+    image: elasticsearch:6.4.0
+    container_name: elasticsearch
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - /home/elasticsearch/data:/usr/share/elasticsearch/data
+      - /home/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - 9200:9200
+      - 9300:9300
+    restart: always
+    networks:
+      - elasticsearch
+  elasticsearch-hd:
+    image: containerize/elastichd
+    container_name: elasticsearch-hd
+    ports:
+      - 9800:9800
+    restart: always
+    networks:
+      - elasticsearch
+networks:
+  elasticsearch:
+    external:
+      name: elasticsearch
+

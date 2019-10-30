@@ -27,7 +27,7 @@
 
 - 版本号：3.8
 - 运行模式：单机模式 + management
-- 默认连接用于：rabbitmq
+- 默认连接用户：rabbitmq
 - 默认连接密码：rabbitmqpassword
 - 开放端口：5672、15672
 - 部署方式 `docker-compose - f rabbitmq-docker/docker-compose.yaml up -d`
@@ -69,3 +69,10 @@
 
 - 关于容器之间的互相访问，如果是再同一个宿主里面，只要在同一个网络中，直接使用容器名就可以了。这儿也建立了多个dockers network，详见：bin/init.sh
 - 全部部署完毕之后，可以使用命令 docker stats 查看各个容器的资源占用情况；
+
+## 一些注意的坑：
+
+- 在部署之前，要创建网络；
+- 在部署之前，要创建数据卷；
+- mysql 第一次部署，要创建 nacos 数据库；
+- 配置文件中的host，设置为了本地onewindow，要在host中添加docker的网卡地址

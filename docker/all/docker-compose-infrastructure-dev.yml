@@ -1,0 +1,118 @@
+version: "3.6"
+services:
+  mysql-5.7-official:
+    image: mysql:5.7
+    container_name: mysql-5.7-official
+    privileged: true
+    command: [
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_unicode_ci',
+      '--default-time-zone=+8:00'
+    ]
+    env_file:
+      - env/infrastructure-product.env
+    volumes:
+      - /root/mianyang/infrastructure/mysql/config:/etc/mysql
+      - /root/mianyang/infrastructure/mysql/data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: on-failure
+  nacos:
+    image: nacos/nacos-server:latest
+    container_name: nacos-standalone-mysql
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_MASTER_SERVICE_HOST=mysql-5.7-official
+      - MYSQL_MASTER_SERVICE_DB_NAME=nacos_config
+      - MYSQL_MASTER_SERVICE_PORT=3306
+      - MYSQL_SLAVE_SERVICE_HOST=mysql-5.7-official
+      - MYSQL_SLAVE_SERVICE_PORT=3306
+      - MYSQL_MASTER_SERVICE_USER=root
+      - MYSQL_MASTER_SERVICE_PASSWORD=eVoATqQM1VL4ysos
+    volumes:
+      - ./logs/nacos-logs/:/home/nacos/logs
+      - ./env/nacos-custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - "8848:8848"
+      - "9555:9555"
+    depends_on:
+      - mysql-5.7-official
+    restart: on-failure
+  redis:
+    image: redis:5.0
+    container_name: redis
+    privileged: true
+    command: [
+      '--requirepass "redispassword"',
+      '--appendonly yes'
+    ]
+    ports:
+      - "6379:6379"
+    restart: on-failure
+  sentinel-dashboard:
+    image: sentinel-dashboard
+    container_name: sentinel-dashboard
+    restart: on-failure
+    build:
+      context: ../infrastructure/sentinel-dashboard-docker/build
+      dockerfile: Dockerfile
+    ports:
+      - "8718:8080"
+      - "8719:8719"
+    environment:
+      - JAVA_OPTS=-Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -Djava.security.egd=file:/dev/./urandom -Dcsp.sentinel.api.port=8719 -Dsentinel.dashboard.auth.username=sentinel -Dsentinel.dashboard.auth.password=sentinel
+    volumes:
+      - ./sentinel-logs/logs:/root/logs
+  rabbitmq:
+    image: rabbitmq:3.8-management
+    container_name: rabbitmq
+    privileged: true
+    environment:
+      RABBITMQ_DEFAULT_USER: 'rabbitmq'
+      RABBITMQ_DEFAULT_PASS: 'rabbitmqpassword'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+  elasticsearch:
+    image: elasticsearch:6.4.0
+    container_name: elasticsearch
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - /root/mianyang/infrastructure/elasticsearch/data:/usr/share/elasticsearch/data
+      - /root/mianyang/infrastructure/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - 9200:9200
+      - 9300:9300
+    restart: always
+  elasticsearch-hd:
+    image: containerize/elastichd
+    container_name: elasticsearch-hd
+    ports:
+      - 9800:9800
+    restart: always
+    depends_on:
+      - elasticsearch
+  zipkin:
+    image: openzipkin/zipkin:2.18
+    container_name: zipkin
+    ports:
+      - 9411:9411
+    environment:
+      - RABBIT_ADDRESSES=rabbitmq
+      - RABBIT_USER=rabbitmq
+      - RABBIT_PASSWORD=rabbitmqpassword
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=elasticsearch:9200
+      - ES_HTTP_LOGGING=BASIC
+    depends_on:
+      - rabbitmq
+      - elasticsearch
+networks:
+  default:
+    external:
+      name: one-window

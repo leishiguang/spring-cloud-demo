@@ -1,0 +1,19 @@
+version: "3"
+services:
+  redis:
+    image: redis:5.0
+    container_name: redis
+    privileged: true
+    command: [
+      '--requirepass "redispassword"',
+      '--appendonly yes'
+    ]
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - redis
+networks:
+  redis:
+    external:
+      name: redis
