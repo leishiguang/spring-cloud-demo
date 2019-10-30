@@ -1,7 +1,0 @@
-这是一个docker-compose的测试文件，使用方式：
-1、进入当前文件目录；
-2、docker-compose up
-3、访问 host:5000，看效果
-4、后续可以使用 docker-compose down 让服务下线；
-
-参考：https://docs.docker.com/compose/gettingstarted/
