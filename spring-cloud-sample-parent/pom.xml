@@ -11,7 +11,7 @@
   <modules>
     <module>cloud-gateway</module>
     <module>cloud-common</module>
-    <module>cloud-admin</module>
+    <module>spring-boot-admin-server</module>
     <module>cloud-auth</module>
     <module>business-one-window</module>
     <module>business-bdck-search</module>
