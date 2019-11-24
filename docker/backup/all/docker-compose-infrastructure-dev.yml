@@ -57,7 +57,7 @@ services:
     restart: on-failure
     build:
       context: ../infrastructure/sentinel-dashboard-docker/build
-      dockerfile: Dockerfile
+      dockerfile: ../infrastructure/sentinel-dashboard-docker/build/Dockerfile
     ports:
       - "8718:8080"
       - "8719:8719"
