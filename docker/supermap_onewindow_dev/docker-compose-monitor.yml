@@ -27,7 +27,7 @@ services:
     #detach: true
     command:
       - '-storage_driver=influxdb'
-      - '-storage_driver_host=influxdb:8286'
+      - '-storage_driver_host=172.17.0.1:8286'
       - '-storage_driver_db=test'
       - '-storage_driver_user=root'
       - '-storage_driver_password=root'

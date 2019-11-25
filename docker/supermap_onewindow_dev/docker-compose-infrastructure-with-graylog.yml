@@ -1,5 +1,5 @@
 version: '3'
-# 绵阳一窗受理项目，应用基础环境的部署
+# 绵阳一窗受理项目，基础环境的部署
 services:
   # mysql: mysql主节点（待升级为 8.0）https://hub.docker.com/_/mysql
   mysql-master:
@@ -15,11 +15,16 @@ services:
     ports:
       - 3306:3306
     command:
-      - '--character-set-server=utf8mb4',
-      - '--collation-server=utf8mb4_unicode_ci',
+      - '--character-set-server=utf8mb4'
+      - '--collation-server=utf8mb4_unicode_ci'
       - '--default-time-zone=+8:00'
     privileged: true
     restart: always
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://172.17.0.1:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
   # nacos：https://hub.docker.com/r/nacos/nacos-server
   nacos:
     image: nacos/nacos-server:latest
@@ -36,6 +41,11 @@ services:
     depends_on:
       - mysql-master
     restart: always
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://172.17.0.1:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
   # redis
   redis:
     image: redis:5.0
@@ -47,22 +57,32 @@ services:
     volumes:
       - redis_data:/data
     env_file:
-      - env/common-environment.env
+      - ./env/common-environment.env
     ports:
       - 6379:6379
-    restart: on-failure
+    restart: always
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://172.17.0.1:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
   # rabbitmq
   rabbitmq:
     image: rabbitmq:3.8-management
-    container_name: rabbitmq
+    container_name: supermap.rabbitmq
     privileged: true
     env_file:
-      - env/common-environment.env
-      - env/rabbitmq.env
+      - ./env/common-environment.env
+      - ./env/rabbitmq.env
     ports:
       - 5672:5672
       - 15672:15672
     restart: always
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://172.17.0.1:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
   #sentinel-dashboard：https://hub.docker.com/r/bladex/sentinel-dashboard
   sentinel-dashboard:
     image: bladex/sentinel-dashboard:1.7.0
@@ -70,32 +90,50 @@ services:
     volumes:
       - ./logs/sentinel:/root/logs
     env_file:
-      - env/common-environment.env
-      - env/sentinel-dashboard.env
+      - ./env/common-environment.env
+      - ./env/sentinel-dashboard.env
     ports:
       - 8858:8858
       - 8718:8718
       - 8719:8719
+    restart: always
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://172.17.0.1:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
   #elasticsearch-hd
   elasticsearch-hd:
     image: containerize/elastichd
     container_name: supermap.elasticsearch-hd
     env_file:
-      - env/common-environment.env
+      - ./env/common-environment.env
     ports:
       - 9800:9800
     restart: always
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://172.17.0.1:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
   #zipkin
-  image: openzipkin/zipkin:2.18
+  zipkin:
+    image: openzipkin/zipkin:2.18
     container_name: supermap.zipkin
     env_file:
-      - env/common-environment.env
-      - env/zipkin.env
+      - ./env/common-environment.env
+      - ./env/zipkin.env
     ports:
       - 9411:9411
     depends_on:
       - rabbitmq
-  #nginx:
+    restart: always
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://172.17.0.1:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
+  #nginx: 做反向代理，避免太多的端口导致混淆
   nginx:
     image: nginx:1.16
     container_name: supermap.nginx
@@ -105,10 +143,15 @@ services:
       - ./config/nginx/conf.d:/etc/nginx/conf.d
       - ./logs/nginx:/var/log/nginx
     env_file:
-      - env/common-environment.env
+      - ./env/common-environment.env
     ports:
-      - 8080:80
+      - 8086:80
     restart: always
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://172.17.0.1:12201"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}"
 networks:
   default:
     external:

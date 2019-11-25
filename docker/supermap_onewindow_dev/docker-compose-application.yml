@@ -1,0 +1,62 @@
+version: '3'
+# 绵阳一窗受理项目，应用部署
+services:
+  #business-bdck-search-server，8771
+  business-bdck-search-server:
+    image: supermap/business-bdck-search-server:latest
+    container_name: supermap.business-bdck-search-server
+    volumes:
+      - ./logs:/home/log
+    env_file:
+      - ./env/common-environment.env
+    ports:
+      - 8771:8771
+    restart: always
+  #business-ow-api-mianyang
+  business-ow-api-mianyang:
+    image: supermap/business-ow-api-mianyang:latest
+    container_name: supermap.business-ow-api-mianyang
+    volumes:
+      - ./logs:/home/log
+    env_file:
+      - ./env/common-environment.env
+    ports:
+      - 8760:8760
+    restart: always
+  #business-ow-api-standard
+  business-ow-api-standard:
+    image: supermap/business-ow-api-standard:latest
+    container_name: supermap.business-ow-api-standard
+    volumes:
+      - ./logs:/home/log
+    env_file:
+      - ./env/common-environment.env
+    ports:
+      - 8769:8769
+    restart: always
+  #business-ow-repeater
+  business-ow-repeater:
+    image: supermap/business-ow-repeater:latest
+    container_name: supermap.business-ow-repeater
+    volumes:
+      - ./logs:/home/log
+    env_file:
+      - ./env/common-environment.env
+    ports:
+      - 8773:8773
+    restart: always
+  #business-ow-bdc-server
+  business-ow-bdc-server:
+    image: supermap/business-ow-bdc-server:latest
+    container_name: supermap.business-ow-bdc-server
+    volumes:
+      - ./logs:/home/log
+    env_file:
+      - ./env/common-environment.env
+    ports:
+      - 8772:8772
+    restart: always
+networks:
+  default:
+    external:
+      name: one-window
