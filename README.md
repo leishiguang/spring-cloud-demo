@@ -13,18 +13,6 @@
 
 ## 技术栈：
 
-1、一套完整的微服务架构，k8s 部署；
-2、spring cloud gateway 网关
-3、nacos 配置中心、服务注册中心
-4、sentinal 流控、降级
-5、zipkin 链路追踪
-6、spring boot admin 应用管理
-7、graylog + elasticsearch + mongodb 日志采集
-8、cadvisor + influxdb + grafana 容器监控
-
-**demo地址（敬请期待）**
-
-## 启动步骤
 
 (未完待续，敬请期待...)
 
