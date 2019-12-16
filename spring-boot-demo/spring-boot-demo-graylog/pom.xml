@@ -16,6 +16,13 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
+    <!-- https://github.com/osiegmar/logback-gelf -->
+    <dependency>
+      <groupId>de.siegmar</groupId>
+      <artifactId>logback-gelf</artifactId>
+      <version>2.2.0</version>
+    </dependency>
   </dependencies>
 
 </project>
