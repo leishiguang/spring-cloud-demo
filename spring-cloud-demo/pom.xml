@@ -5,12 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>demo.java</groupId>
-  <artifactId>spring-boot-demo</artifactId>
+  <artifactId>spring-cloud-demo</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>spring-boot-demo-graylog</module>
-    <module>spring-boot-demo-web</module>
     <!--<module>spring-boot-demo-web</module>-->
   </modules>
 
@@ -22,8 +20,8 @@
 
   <properties>
     <!-- 业务属性 -->
-    <docker.image.prefix>supermap</docker.image.prefix>
-    <!--<docker.plugin.version>0.4.13</docker.plugin.version>
+    <!--<docker.image.prefix>supermap</docker.image.prefix>
+    <docker.plugin.version>0.4.13</docker.plugin.version>
     <mybatis.starter.version>1.3.2</mybatis.starter.version>
     <tk.mapper.starter.version>2.1.5</tk.mapper.starter.version>
     <pagehelper.version>5.1.10</pagehelper.version>
@@ -48,83 +46,14 @@
     </dependency>
   </dependencies>
 
-
   <dependencyManagement>
     <dependencies>
-      <!-- 管理一方依赖 -->
-
-      <!--一方依赖结束-->
-
-      <!-- spring boot starter -->
       <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-configuration-processor</artifactId>
-        <optional>true</optional>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-tomcat</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>fastjson</artifactId>
-        <version>${fastjson.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>de.codecentric</groupId>
-        <artifactId>spring-boot-admin-starter-server</artifactId>
-        <version>${spring-boot-admin.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>de.codecentric</groupId>
-        <artifactId>spring-boot-admin-starter-client</artifactId>
-        <version>${spring-boot-admin.version}</version>
-      </dependency>
-      <!-- mybatis -->
-      <dependency>
-        <groupId>org.mybatis.spring.boot</groupId>
-        <artifactId>mybatis-spring-boot-starter</artifactId>
-        <version>${mybatis.starter.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>tk.mybatis</groupId>
-        <artifactId>mapper-spring-boot-starter</artifactId>
-        <version>${tk.mapper.starter.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.github.pagehelper</groupId>
-        <artifactId>pagehelper</artifactId>
-        <version>${pagehelper.version}</version>
-      </dependency>
-      <!-- oracle jdbc，需要在本地仓库中安装，详见本项目开发手册 -->
-      <dependency>
-        <groupId>com.oracle</groupId>
-        <artifactId>ojdbc8</artifactId>
-        <version>${oracle.ojdbc.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>javax.persistence</groupId>
-        <artifactId>persistence-api</artifactId>
-        <version>1.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fasterxml.jackson</groupId>
-        <artifactId>jackson-bom</artifactId>
-        <version>${jackson.version}</version>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Hoxton.SR1</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>io.zipkin.brave</groupId>
-        <artifactId>brave</artifactId>
-        <version>${zipkin.brave.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
